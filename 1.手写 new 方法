@@ -1,0 +1,23 @@
+		function Parent() {
+            this.name = "parent";
+            this.say = function() {
+                console.log("say")
+            }
+        }
+
+        Parent.prototype = {
+            walk: function() {
+                console.log("walk")
+            }
+        }
+
+        function newfn(fn) {
+            if (typeof fn !== 'function') return;
+            let son = {};
+            fn.call(son);
+            fn.prototype.constructor = fn;
+            son.__proto__ = fn.prototype;
+            return son;
+        }
+        let son1 = newfn(Parent);
+        son1.walk();
