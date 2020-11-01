@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>洗牌算法</title>
+</head>
+<body>
+<script>
+    /* 经典的洗牌算法，在腾讯的时候被考察过，还是很基础的算法呀，这都没思考清楚，咋能行 */
+  var randomArr = function (arr) {
+      for(let i=0; i<arr.length-1;i++){
+        let j = i + (Math.floor(Math.random()*(arr.length - i)));
+        [arr[i],arr[j]] = [arr[j],arr[i]]
+      }
+      return arr;
+  }
+  const testArr = [1,2,3,4,5,6,7,8]
+  console.log(randomArr(testArr))
+</script>
+</body>
+</html>

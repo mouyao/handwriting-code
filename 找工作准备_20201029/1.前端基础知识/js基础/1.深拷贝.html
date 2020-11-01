@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function deepClone(obj){
+        if(obj===null) return obj;
+        if(typeof obj!=='object') return obj;
+        /* 重新new是为了让他做一个复制操作，而不是原来的值返回，没有达到深拷贝的目的 */
+        if(obj instanceof RegExp){
+            return new RegExp(obj);
+        }
+        /* 重新new是为了让他做一个复制操作，而不是原来的值返回，没有达到深拷贝的目的 */
+        if(obj instanceof Date){
+            return new Date(obj);
+        }
+        // 这里的newObj不使用{}，是为了保证克隆的结果和之前的保持相同的所属类，比如传进来的
+        let newObj =new obj.constructor()
+        for(let key in obj){
+            //hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链
+            if(obj.hasOwnProperty(key)){
+                console.log(obj[key],key,'key')
+                newObj[key] = deepClone(obj[key])
+            }
+        }
+        return newObj;
+    }
+    const testObj = {a:1,b:{c:new Date(),d: function(){console.log(6666)}}}
+    console.log(deepClone(testObj))
+    console.log(JSON.parse(JSON.stringify(testObj)))
+</script>
+</body>
+</html>
